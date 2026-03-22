@@ -16,3 +16,8 @@ modifier.magic_enhance.name=魔力增强
 modifier.magic_enhance.desc=§o魔法的力量§r\n提高器械的法术强度
 modifier.magic_upgrade.name=魔力扩容
 modifier.magic_upgrade.desc=§o魔法的力量§r\n提高器械的魔力容量
+
+modifier.magic_affinity_armor.name=魔力亲和
+modifier.magic_affinity_armor.desc=§o魔法的力量§r\n减少魔力消耗
+modifier.magic_chargeup_armor.name=魔力加速
+modifier.magic_chargeup_armor.desc=§o魔法的力量§r\n减少法术冷却时间

@@ -3,17 +3,23 @@ package com.xifeng.tinkers_wizardry.weapon;
 import com.google.common.collect.Multimap;
 import com.windanesz.wizardryutils.server.Attributes;
 import com.xifeng.tinkers_wizardry.aspect.SpecialCategory;
+import com.xifeng.tinkers_wizardry.config.ModConfig;
 import com.xifeng.tinkers_wizardry.materials.MagicMaterialStats;
 import com.xifeng.tinkers_wizardry.materials.MagicNBT;
+import com.xifeng.tinkers_wizardry.modifiers.ModifierMagic;
 import com.xifeng.tinkers_wizardry.part.MagicMaterialType;
+import com.xifeng.tinkers_wizardry.utils.SpellBladeHelper;
 import com.xifeng.tinkers_wizardry.utils.WizardryUtil;
 import electroblob.wizardry.client.DrawingUtils;
 import electroblob.wizardry.constants.Element;
 import electroblob.wizardry.item.IManaStoringItem;
 import electroblob.wizardry.item.ISpellCastingItem;
 import electroblob.wizardry.item.IWorkbenchItem;
+import electroblob.wizardry.registry.WizardryItems;
 import electroblob.wizardry.spell.Spell;
+import electroblob.wizardry.util.ParticleBuilder;
 import electroblob.wizardry.util.SpellModifiers;
+import electroblob.wizardry.util.WandHelper;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -27,6 +33,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -42,6 +49,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 public class SpellBlade extends SwordCore implements IWorkbenchItem, ISpellCastingItem, IManaStoringItem {
     private final WizardryCore wizardryCore;
@@ -91,16 +99,55 @@ public class SpellBlade extends SwordCore implements IWorkbenchItem, ISpellCasti
         boolean hit =  super.dealDamage(stack, player, entity, damage);
         if(player instanceof EntityPlayer && entity instanceof EntityLivingBase) {
             MagicNBT nbt = MagicNBT.from(stack);
+            //近战升级也能提高附加伤害
+            int level = WandHelper.getUpgradeLevel(stack, WizardryItems.melee_upgrade);
+            float mod = (float) (level * ModConfig.meleMagicDamageIncrease + 1);
             double baseDamage = nbt.attack * 0.5 + 1;
             float potency = WizardryUtil.getSpellPotency(stack) / 100.0f;
-            float bonusMagicDmg = (float) (baseDamage * potency);
+            float bonusMagicDmg = (float) (baseDamage * potency) * mod;
             entity.hurtResistantTime = 0;
             ((EntityLivingBase) entity).lastDamage = 0;
             DamageSource source = DamageSource.causePlayerDamage((EntityPlayer) player);
             source.setMagicDamage();
             entity.attackEntityFrom(source, bonusMagicDmg);
+            if(!SpellBladeHelper.getElement(stack).equals("MAGIC")) {
+                spawnParticle(player, stack, entity);
+            }
         }
         return hit;
+    }
+
+    //copy from wizardry
+    private static void spawnParticle(EntityLivingBase player, ItemStack stack, Entity target) {
+        if(!player.world.isRemote) return;
+        Random rand = player.world.rand;
+        Element element = Element.valueOf(SpellBladeHelper.getElement(stack));
+        Vec3d origin = player.getPositionEyes(1.0f);
+        Vec3d hit = origin.add(player.getLookVec().scale(player.getDistance(target)));
+        Vec3d vec1 = player.getLookVec().rotatePitch(90);
+        Vec3d vec2 = player.getLookVec().crossProduct(vec1);
+        float r=0, g=0, b=0, fr=0, fg=0, fb=0;
+
+        switch (element) {
+            case FIRE:        r=1.0F; g=0.6F; b=0.0F; fr=0.8F; fg=0.1F; fb=0.0F; break;
+            case ICE:         r=0.9F; g=0.95F;b=1.0F; fr=0.4F; fg=0.7F; fb=1.0F; break;
+            case EARTH:       r=0.4F; g=1.0F; b=0.2F; fr=0.0F; fg=0.6F; fb=0.1F; break;
+            case NECROMANCY:  r=0.6F; g=0.3F; b=0.8F; fr=0.2F; fg=0.0F; fb=0.3F; break;
+            case HEALING:     r=1.0F; g=1.0F; b=1.0F; fr=1.0F; fg=0.7F; fb=0.2F; break;
+            case LIGHTNING:   r=0.9F; g=0.9F; b=1.0F; fr=0.2F; fg=0.4F; fb=1.0F; break;
+            case SORCERY:     r=0.8F; g=0.4F; b=1.0F; fr=0.4F; fg=0.0F; fb=0.6F; break;
+            default: break;
+        }
+        for(int i = 0; i < 8; i++){
+            Vec3d velocity = vec1.scale(rand.nextFloat() * 0.3f - 0.15f).add(vec2.scale(rand.nextFloat() * 0.3f - 0.15f));
+            ParticleBuilder.create(ParticleBuilder.Type.SPARKLE)
+                    .pos(hit)
+                    .vel(velocity)
+                    .clr(r, g, b)
+                    .fade(fr, fg, fb)
+                    .time(8 + rand.nextInt(4))
+                    .spawn(player.world);
+        }
     }
 
     @Nonnull
@@ -124,7 +171,7 @@ public class SpellBlade extends SwordCore implements IWorkbenchItem, ISpellCasti
     @Override
     public void addMaterialTraits(NBTTagCompound root, List<Material> materials) {
         super.addMaterialTraits(root, materials);
-        //ModifierMagic.INSTANCE.apply(root);
+        ModifierMagic.INSTANCE.apply(root);
     }
 
     //Magic part!
@@ -208,8 +255,7 @@ public class SpellBlade extends SwordCore implements IWorkbenchItem, ISpellCasti
 
     @Override
     public boolean canContinueUsing(@ParametersAreNonnullByDefault ItemStack oldStack, @ParametersAreNonnullByDefault ItemStack newStack){
-        boolean b = super.canContinueUsing(oldStack, newStack);
-        return wizardryCore.canContinueUsing(oldStack, newStack) && b;
+        return wizardryCore.canContinueUsing(oldStack, newStack);
     }
 
     @Override
@@ -324,7 +370,4 @@ public class SpellBlade extends SwordCore implements IWorkbenchItem, ISpellCasti
         wizardryCore.onClearButtonPressed(centre);
     }
 
-    public void setElement(ItemStack stack, Element element){
-        wizardryCore.setElement(stack, element);
-    }
 }

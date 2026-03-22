@@ -1,0 +1,15 @@
+{
+  "armormodifier": "magic_affinity_armor",
+  "text": [
+    {
+      "text": "将一些多余的卷轴贴在盔甲上，说不定有什么意想不到的效果。"
+    }
+  ],
+  "effects": [
+    "降低魔力消耗",
+    "只能强化一次"
+  ],
+  "demoArmor": [
+    "conarm:helmet"
+  ]
+}

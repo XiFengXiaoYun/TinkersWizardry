@@ -47,7 +47,6 @@ public class WizardryEvents {
         //法术也能触发词条效果, 可通过配置文件启用
         if(!ModConfig.spellTriggerCertainTraits) return;
         DamageSource source = event.getSource();
-        System.out.println(source.damageType);
         if(source.getTrueSource() == null || !source.isMagicDamage()) return;
         if(!source.damageType.equals("wizardry_magic") && !source.damageType.equals("indirect_wizardry_magic")) return;
         Entity entity = source.getTrueSource();
@@ -68,7 +67,7 @@ public class WizardryEvents {
             }
             float newAmount = amount;
             for(ITrait trait : traits){
-                amount =  trait.damage(stack, livingBase, event.getEntityLiving(), amount, newAmount, isCritical);
+                amount = trait.damage(stack, livingBase, event.getEntityLiving(), amount, newAmount, isCritical);
             }
             event.setAmount(amount);
         }

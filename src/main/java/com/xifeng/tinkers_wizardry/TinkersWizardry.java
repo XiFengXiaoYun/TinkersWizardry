@@ -1,6 +1,7 @@
 package com.xifeng.tinkers_wizardry;
 
 import com.xifeng.tinkers_wizardry.common.CommonProxy;
+import com.xifeng.tinkers_wizardry.conarm.ConarmModifiers;
 import com.xifeng.tinkers_wizardry.materials.MagicMaterials;
 import com.xifeng.tinkers_wizardry.modifiers.ModifierRegister;
 import net.minecraftforge.fml.common.Mod;
@@ -35,6 +36,7 @@ public class TinkersWizardry {
     public void init(FMLInitializationEvent event) {
         proxy.initToolGuis();
         ModifierRegister.initModifiers();
+        ConarmModifiers.initModifiers();
     }
 
     @Mod.EventHandler

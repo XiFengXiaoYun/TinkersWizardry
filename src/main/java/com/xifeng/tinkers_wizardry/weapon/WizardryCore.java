@@ -133,12 +133,11 @@ public class WizardryCore {
 
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged){
         if(!oldStack.isEmpty() || !newStack.isEmpty()){
-            if(oldStack.getItem() == newStack.getItem() && !slotChanged && oldStack.getItem() instanceof SpellBlade
-                    && newStack.getItem() instanceof SpellBlade
-                    && SpellBladeHelper.getCurrentSpell(oldStack) == SpellBladeHelper.getCurrentSpell(newStack))
-                return false;
+            return oldStack.getItem() != newStack.getItem() || slotChanged || !(oldStack.getItem() instanceof SpellBlade)
+                    || !(newStack.getItem() instanceof SpellBlade)
+                    || SpellBladeHelper.getCurrentSpell(oldStack) != SpellBladeHelper.getCurrentSpell(newStack);
         }
-        return false;
+        return true;
     }
 
     public EnumAction getItemUseAction(ItemStack itemstack){

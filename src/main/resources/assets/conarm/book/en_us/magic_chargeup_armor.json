@@ -1,0 +1,15 @@
+{
+  "armormodifier": "magic_chargeup_armor",
+  "text": [
+    {
+      "text": "Attach some extra scrolls to the armor—perhaps they'll yield unexpected results."
+    }
+  ],
+  "effects": [
+    "Decrease the spell cooldown",
+    "Only once"
+  ],
+  "demoArmor": [
+    "conarm:helmet"
+  ]
+}

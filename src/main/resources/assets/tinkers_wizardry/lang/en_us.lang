@@ -16,3 +16,8 @@ modifier.magic_enhance.name=Magic Enhance
 modifier.magic_enhance.desc=§oThe power of magic§r\n Increase the spell potency of the weapon
 modifier.magic_upgrade.name=Magic Expansion
 modifier.magic_upgrade.desc=§oThe power of magic§r\n Increase the mana capacity of the weapon
+
+modifier.magic_affinity_armor.name=Magic Affinity
+modifier.magic_affinity_armor.desc=§oThe power of magic...§r\nDecrease the mana cost when cast spell
+modifier.magic_chargeup_armor.name=Magic Accelerate
+modifier.magic_chargeup_armor.desc=§oThe power of magic...§r\nDecrease the cooldown of spell

@@ -23,7 +23,6 @@ public class MaterialRegistry {
         }
         CraftTweaker.LOG.info("Adding material " + mat);
         MagicMaterialStats stats = new MagicMaterialStats(spellPotency, mana);
-        MagicMaterials.crtMaterials.put(material, stats);
         TinkerRegistry.addMaterialStats(material, stats);
     }
 }
