@@ -2,10 +2,7 @@ package com.xifeng.tinkers_wizardry.events;
 
 import com.xifeng.tinkers_wizardry.Tags;
 import com.xifeng.tinkers_wizardry.config.ModConfig;
-import com.xifeng.tinkers_wizardry.utils.SpellBladeHelper;
 import com.xifeng.tinkers_wizardry.weapon.SpellBlade;
-import electroblob.wizardry.constants.Element;
-import electroblob.wizardry.event.ImbuementActivateEvent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -17,13 +14,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = Tags.MOD_ID)
 public class WizardryEvents {
-    //TODO: 使用其他方式实现
-    @SubscribeEvent
+    //弃用，使用mixin实现
+    /*@SubscribeEvent
     public static void imbuementActive(ImbuementActivateEvent event){
         if(event.world.isRemote) return;
         ItemStack input = event.input;
@@ -34,13 +30,15 @@ public class WizardryEvents {
             return;
         }
         Element[] elements = event.receptacleElements;
+        ItemStack output = input.copy();
         if(Arrays.stream(elements).distinct().count() == 1L && elements[0] != null) {
             Element element = elements[0];
-            SpellBladeHelper.setElement(input, element.name());
+            SpellBladeHelper.setElement(output, element.name());
+            event.result = output;
         }
-
-
     }
+
+     */
 
     @SubscribeEvent
     public static void spellBladeCastEvent(LivingHurtEvent event){

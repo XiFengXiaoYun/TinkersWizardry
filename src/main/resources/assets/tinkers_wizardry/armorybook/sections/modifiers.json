@@ -1,0 +1,10 @@
+[
+  {
+    "type": "armormodifier",
+    "data": "modifiers/magic_affinity_armor.json"
+  },
+  {
+    "type": "armormodifier",
+    "data": "modifiers/magic_chargeup_armor.json"
+  }
+]

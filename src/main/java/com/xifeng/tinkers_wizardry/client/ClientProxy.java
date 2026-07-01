@@ -1,10 +1,6 @@
 package com.xifeng.tinkers_wizardry.client;
 
 import c4.conarm.lib.book.ArmoryBook;
-import c4.conarm.lib.utils.ConstructUtils;
-import com.xifeng.tinkers_wizardry.client.book.ArmorBookTransformerModifiers;
-import com.xifeng.tinkers_wizardry.client.book.BookTransformerModifiers;
-import com.xifeng.tinkers_wizardry.client.book.BookTransformerWeapons;
 import com.xifeng.tinkers_wizardry.common.CommonProxy;
 import com.xifeng.tinkers_wizardry.weapon.WeaponHandler;
 import net.minecraft.item.Item;
@@ -35,9 +31,8 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void postInit() {
-        TinkerBook.INSTANCE.addTransformer(new BookTransformerWeapons(new FileRepository("tconstruct:book")));
-        TinkerBook.INSTANCE.addTransformer(new BookTransformerModifiers(new FileRepository("tconstruct:book")));
-        ArmoryBook.INSTANCE.addTransformer(new ArmorBookTransformerModifiers(new FileRepository(ConstructUtils.getResource("book").toString())));
+        TinkerBook.INSTANCE.addRepository(new FileRepository("tinkers_wizardry:book"));
+        ArmoryBook.INSTANCE.addRepository(new FileRepository("tinkers_wizardry:armorybook"));
     }
 
     @Override

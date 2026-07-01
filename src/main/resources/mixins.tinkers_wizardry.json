@@ -1,0 +1,13 @@
+{
+	"package": "com.xifeng.tinkers_wizardry.mixins",
+	"required": true,
+	"refmap": "mixins.tinkers_wizardry.refmap.json",
+	"target": "@env(DEFAULT)",
+	"minVersion": "0.8.5",
+	"compatibilityLevel": "JAVA_8",
+	"mixins": [
+		"MixinTileEntityImbuementAltar"
+	],
+	"server": [],
+	"client": []
+}
