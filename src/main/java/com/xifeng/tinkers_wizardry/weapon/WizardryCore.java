@@ -144,6 +144,7 @@ public class WizardryCore {
         return SpellBladeHelper.getCurrentSpell(itemstack).action;
     }
 
+    //The same as wizardry wand
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, List<String> text, net.minecraft.client.util.ITooltipFlag advanced){
         EntityPlayer player = net.minecraft.client.Minecraft.getMinecraft().player;
@@ -157,17 +158,16 @@ public class WizardryCore {
                 new Style().setColor(TextFormatting.DARK_GRAY),
                 (int)((tier.level + 1) * Constants.POTENCY_INCREASE_PER_TIER * 100 + 0.5f), element.getDisplayName()));
         Spell spell = SpellBladeHelper.getCurrentSpell(stack);
-        boolean discovered = !Wizardry.settings.discoveryMode || player.isCreative() || WizardData.get(player) == null
-                || WizardData.get(player).hasSpellBeenDiscovered(spell);
+
+        boolean discovered = !Wizardry.settings.discoveryMode || player.isCreative() || WizardData.get(player) == null || WizardData.get(player).hasSpellBeenDiscovered(spell);
+
         text.add(Wizardry.proxy.translate("item." + Wizardry.MODID + ":wand.spell", new Style().setColor(TextFormatting.GRAY),
                 discovered ? spell.getDisplayNameWithFormatting() : "#" + TextFormatting.BLUE + SpellGlyphData.getGlyphName(spell, player.world)));
-        if(advanced.isAdvanced()){
-            text.add(Wizardry.proxy.translate("item." + Wizardry.MODID + ":wand.mana", new Style().setColor(TextFormatting.BLUE),
-                    this.getMana(stack), this.getManaCapacity(stack)));
 
-            text.add(Wizardry.proxy.translate("item." + Wizardry.MODID + ":wand.progression", new Style().setColor(TextFormatting.GRAY),
-                    WandHelper.getProgression(stack), tier.level < Tier.MASTER.level ? tier.next().getProgression() : 0));
-        }
+        text.add(Wizardry.proxy.translate("item." + Wizardry.MODID + ":wand.mana", new Style().setColor(TextFormatting.BLUE), this.getMana(stack), this.getManaCapacity(stack)));
+
+        text.add(Wizardry.proxy.translate("item." + Wizardry.MODID + ":wand.progression", new Style().setColor(TextFormatting.GRAY), WandHelper.getProgression(stack), tier.level < Tier.MASTER.level ? tier.next().getProgression() : 0));
+
     }
 
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand){
