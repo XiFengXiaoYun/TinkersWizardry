@@ -1,5 +1,6 @@
 item.spellblade.name=施法锋刃
 item.spellblade.desc=近战攻击可附加魔法伤害，同时右键还能施放法术。谁说法师怕近战？
+item.spellblade.jei_desc=对于无属性的施法锋刃，放入注灵祭坛中，四周放上相同元素的灵尘，即可使其获得对应元素属性
 
 item.magic_focus.name=施法核心
 stat.magic_focus.name=魔力

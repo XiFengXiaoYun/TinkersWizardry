@@ -21,6 +21,7 @@ import electroblob.wizardry.util.ParticleBuilder;
 import electroblob.wizardry.util.SpellModifiers;
 import electroblob.wizardry.util.WandHelper;
 import mcp.MethodsReturnNonnullByDefault;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -33,6 +34,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -62,6 +64,17 @@ public class SpellBlade extends SwordCore implements IWorkbenchItem, ISpellCasti
         this.addCategory(Category.WEAPON, SpecialCategory.Wizardry);
         setTranslationKey("spellblade").setRegistryName("spellblade");
         this.wizardryCore = new WizardryCore();
+    }
+    @Override
+    public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> subItems) {
+        if(this.isInCreativeTab(tab)) {
+            addDefaultSubItems(subItems);
+            addInfiTool(subItems, "InfiSpellBlade");
+        }
+    }
+
+    public ItemStack getDemo() {
+        return this.getInfiTool("InfiSpellBlade");
     }
 
     @Override

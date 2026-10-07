@@ -1,5 +1,6 @@
 item.spellblade.name=Spell Blade
 item.spellblade.desc=Melee attacks can deal magical damage, and right-clicking can also cast spells.
+item.spellblade.jei_desc=For the Spell Blade without element, place it in the Imbuement Altar and surround it with Spectral Dust of the same element to grant it the corresponding elemental attribute.
 
 item.magic_focus.name=Magic Core
 stat.magic_focus.name=Magic
