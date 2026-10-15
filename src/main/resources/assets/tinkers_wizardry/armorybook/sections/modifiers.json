@@ -6,5 +6,17 @@
   {
     "type": "armormodifier",
     "data": "modifiers/magic_chargeup_armor.json"
+  },
+  {
+    "type": "armormodifier",
+    "data": "modifiers/potency_upgrade_armor.json"
+  },
+  {
+    "type": "armormodifier",
+    "data": "modifiers/cooldown_upgrade_armor.json"
+  },
+  {
+    "type": "armormodifier",
+    "data": "modifiers/cost_upgrade_armor.json"
   }
 ]

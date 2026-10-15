@@ -22,3 +22,11 @@ modifier.magic_affinity_armor.name=Magic Affinity
 modifier.magic_affinity_armor.desc=§oThe power of magic...§r\nDecrease the mana cost when cast spell
 modifier.magic_chargeup_armor.name=Magic Accelerate
 modifier.magic_chargeup_armor.desc=§oThe power of magic...§r\nDecrease the cooldown of spell
+
+modifier.potency_upgrade_armor.name=Upgrade: Spell Potency
+modifier.cooldown_upgrade_armor.name=Upgrade: Cast Cooldown
+modifier.cost_upgrade_armor.name=Upgrade: Spell Cost
+
+modifier.potency_upgrade_armor.desc=§oThe power of magic...§r\nGrant spell potency bonus. \n§bSet bonus: magic ward I.
+modifier.cooldown_upgrade_armor.desc=§oThe power of magic...§r\nDecrease spell cooldown. \n§bSet bonus: speed I.
+modifier.cost_upgrade_armor.desc=§oThe power of magic...§r\nDecrease spell cost and grant mana condensing. \n§bSet bonus: muffle I.

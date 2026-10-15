@@ -1,0 +1,26 @@
+{
+  "armormodifier": "cooldown_upgrade_armor",
+  "text": [
+    {
+      "text": "Ethereal crystal weave facilitates faster casting of spells."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "If using Imbuement Altar to imbue it with elemental magic, perhaps it can bring better effects?"
+    }
+  ],
+  "effects": [
+    "Speed up spell cooldown",
+    "Single use",
+    "Incompatible with other upgrade modifier",
+    "Grant special effect when equip full set"
+  ],
+  "demoArmor": [
+    "conarm:helmet",
+    "conarm:chestplate",
+    "conarm:leggings",
+    "conarm:boots"
+  ]
+}

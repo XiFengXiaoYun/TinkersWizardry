@@ -1,6 +1,7 @@
 package com.xifeng.tinkers_wizardry.modifiers;
 
 import com.xifeng.tinkers_wizardry.aspect.SpecialCategory;
+import com.xifeng.tinkers_wizardry.config.ModConfig;
 import com.xifeng.tinkers_wizardry.materials.MagicNBT;
 import com.xifeng.tinkers_wizardry.utils.TWTagUtil;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,7 +21,7 @@ public class ModifierMagicEnhance extends ModifierTrait {
         int current = nbt.current;
         MagicNBT data = TWTagUtil.getMagicStats(rootCompound);
         MagicNBT oldData = TWTagUtil.getOriginalMagicStats(rootCompound);
-        data.spellPotency += (float) (oldData.spellPotency * current * 0.01);
+        data.spellPotency += (float) (oldData.spellPotency * current * ModConfig.Modifier.potencyIncrease);
         TagUtil.setToolTag(rootCompound, data.get());
     }
 }

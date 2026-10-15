@@ -1,0 +1,27 @@
+{
+  "armormodifier": "cost_upgrade_armor",
+  "text": [
+    {
+      "text": "Sew the resplendent thread onto the armor, let's see what changes occur."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "If using Imbuement Altar to imbue it with elemental magic, perhaps it can bring better effects?"
+    }
+  ],
+  "effects": [
+    "Reduce spell cost",
+    "Condensing mana slowly",
+    "Single use",
+    "Incompatible with other upgrade modifier",
+    "Grant special effect when equip full set"
+  ],
+  "demoArmor": [
+    "conarm:helmet",
+    "conarm:chestplate",
+    "conarm:leggings",
+    "conarm:boots"
+  ]
+}

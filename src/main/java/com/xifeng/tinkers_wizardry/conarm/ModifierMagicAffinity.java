@@ -3,6 +3,7 @@ package com.xifeng.tinkers_wizardry.conarm;
 import c4.conarm.lib.modifiers.ArmorModifierTrait;
 import com.google.common.collect.Multimap;
 import com.windanesz.wizardryutils.server.Attributes;
+import com.xifeng.tinkers_wizardry.config.ModConfig;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -18,7 +19,7 @@ public class ModifierMagicAffinity extends ArmorModifierTrait {
     }
     public void getAttributeModifiers(@Nonnull EntityEquipmentSlot slot, ItemStack stack, Multimap<String, AttributeModifier> attributeMap) {
         if(slot == EntityLiving.getSlotForItemStack(stack)) {
-            attributeMap.put(Attributes.COST.getName(), new AttributeModifier(uuids[slot.getIndex()], "magic_affinity", -0.125, 1));
+            attributeMap.put(Attributes.COST.getName(), new AttributeModifier(uuids[slot.getIndex()], "magic_affinity", ModConfig.Modifier.magicAffinity, 2));
         }
     }
 }

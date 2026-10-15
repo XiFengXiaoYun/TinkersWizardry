@@ -31,10 +31,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
+import net.minecraft.util.*;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -92,7 +89,7 @@ public class SpellBlade extends SwordCore implements IWorkbenchItem, ISpellCasti
         data.magic(magic);
 
         data.attack += 1;
-        data.durability *= 0.8;
+        data.durability = (int) (data.durability * 0.8);
         return data;
     }
 
@@ -106,7 +103,6 @@ public class SpellBlade extends SwordCore implements IWorkbenchItem, ISpellCasti
         return 1.8;
     }
 
-    //TODO: 播放对应元素的魔法粒子效果
     @Override
     public boolean dealDamage(ItemStack stack, EntityLivingBase player, Entity entity, float damage) {
         boolean hit =  super.dealDamage(stack, player, entity, damage);
@@ -114,15 +110,19 @@ public class SpellBlade extends SwordCore implements IWorkbenchItem, ISpellCasti
             MagicNBT nbt = MagicNBT.from(stack);
             //近战升级也能提高附加伤害
             int level = WandHelper.getUpgradeLevel(stack, WizardryItems.melee_upgrade);
-            float mod = (float) (level * ModConfig.meleMagicDamageIncrease + 1);
+            float mod = (float) (level * ModConfig.meleeMagicDamageIncrease + 1);
             double baseDamage = nbt.attack * 0.5 + 1;
             float potency = WizardryUtil.getSpellPotency(stack) / 100.0f;
             float bonusMagicDmg = (float) (baseDamage * potency) * mod;
-            entity.hurtResistantTime = 0;
-            ((EntityLivingBase) entity).lastDamage = 0;
-            DamageSource source = DamageSource.causePlayerDamage((EntityPlayer) player);
-            source.setMagicDamage();
-            entity.attackEntityFrom(source, bonusMagicDmg);
+            int manaCost = ModConfig.magicDmgCostMana ? Math.max(1, (int) bonusMagicDmg / 2) : 0;
+            //是否消耗魔力
+            if(WizardryUtil.getMana(stack) >= manaCost) {
+                entity.hurtResistantTime = 0;
+                ((EntityLivingBase) entity).lastDamage = 0;
+                DamageSource source = DamageSource.causePlayerDamage((EntityPlayer) player);
+                source.setMagicDamage();
+                entity.attackEntityFrom(source, bonusMagicDmg);
+            }
             if(!SpellBladeHelper.getElement(stack).equals("MAGIC")) {
                 spawnParticle(player, stack, entity);
             }
@@ -171,14 +171,14 @@ public class SpellBlade extends SwordCore implements IWorkbenchItem, ISpellCasti
         double amount = calcSpellPotency(stack);
 
         if (slot == EntityEquipmentSlot.MAINHAND && !ToolHelper.isBroken(stack)) {
-            multimap.put(Attributes.POTENCY.getName(), new AttributeModifier(uuid, "Magic_Potency", amount, 1));
+            multimap.put(Attributes.POTENCY.getName(), new AttributeModifier(uuid, "Magic_Potency", amount, 0));
         }
 
         return multimap;
     }
 
     private static double calcSpellPotency(ItemStack stack) {
-        return WizardryUtil.getSpellPotency(stack)/100.0;
+        return WizardryUtil.getSpellPotency(stack);
     }
 
     @Override

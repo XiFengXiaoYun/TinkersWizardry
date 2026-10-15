@@ -1,0 +1,27 @@
+{
+  "armormodifier": "potency_upgrade_armor",
+  "text": [
+    {
+      "text": "Utilizing the magical properties of crystal silver plating, it can bring new powers as long as it is attached to armor."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "If using Imbuement Altar to imbue it with elemental magic, perhaps it can bring better effects?"
+    }
+  ],
+  "effects": [
+    "Enhance spell potency",
+    "Single use",
+    "Very reasonable",
+    "Incompatible with other upgrade modifier",
+    "Grant special effect when equip full set"
+  ],
+  "demoArmor": [
+    "conarm:helmet",
+    "conarm:chestplate",
+    "conarm:leggings",
+    "conarm:boots"
+  ]
+}

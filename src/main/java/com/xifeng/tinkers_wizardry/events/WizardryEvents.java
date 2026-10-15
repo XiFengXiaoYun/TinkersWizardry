@@ -17,7 +17,7 @@ import slimeknights.tconstruct.library.utils.TinkerUtil;
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = Tags.MOD_ID)
-public class WizardryEvents {
+public final class WizardryEvents {
     //弃用，使用mixin实现
     /*@SubscribeEvent
     public static void imbuementActive(ImbuementActivateEvent event){
@@ -68,6 +68,9 @@ public class WizardryEvents {
                 amount = trait.damage(stack, livingBase, event.getEntityLiving(), amount, newAmount, isCritical);
             }
             event.setAmount(amount);
+            for(ITrait trait : traits) {
+                trait.afterHit(stack, livingBase, event.getEntityLiving(), amount, isCritical, true);
+            }
         }
     }
 }

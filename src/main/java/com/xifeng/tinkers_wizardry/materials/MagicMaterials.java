@@ -4,7 +4,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 
-public class MagicMaterials {
+public final class MagicMaterials {
 
     public static void initMagicMaterials() {
         Material.UNKNOWN.addStats(new MagicMaterialStats(1.0f, 100));

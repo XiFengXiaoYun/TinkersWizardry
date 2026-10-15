@@ -1,0 +1,26 @@
+{
+  "armormodifier": "cooldown_upgrade_armor",
+  "text": [
+    {
+      "text": "轻盈的缈晶纹绸有利于更快地施法。"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "如果使用注灵祭坛为其赋予元素魔力，说不定能带来更好的效果？"
+    }
+  ],
+  "effects": [
+    "加快法术冷却",
+    "只能强化一次",
+    "与其他升级强化不兼容",
+    "集齐全套会有特殊效果"
+  ],
+  "demoArmor": [
+    "conarm:helmet",
+    "conarm:chestplate",
+    "conarm:leggings",
+    "conarm:boots"
+  ]
+}
