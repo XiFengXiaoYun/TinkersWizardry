@@ -1,7 +1,6 @@
 package com.xifeng.tinkers_wizardry.compat.crafttweaker;
 
 import com.xifeng.tinkers_wizardry.materials.MagicMaterialStats;
-import com.xifeng.tinkers_wizardry.materials.MagicMaterials;
 import crafttweaker.annotations.ModOnly;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.mc1120.CraftTweaker;
@@ -10,7 +9,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-@ZenClass("mods.tinkersidea.Materials")
+@ZenClass("mods.tinkerswizardry.Materials")
 @ZenRegister
 @ModOnly("ebwizardry")
 public class MaterialRegistry {
@@ -21,7 +20,7 @@ public class MaterialRegistry {
             CraftTweaker.LOG.error("Material with name " + mat + " not found!");
             return;
         }
-        CraftTweaker.LOG.info("Adding material " + mat);
+        CraftTweaker.LOG.info("Adding material " + mat + "with stats: " + "mana:" + mana + "spell potency:" + spellPotency);
         MagicMaterialStats stats = new MagicMaterialStats(spellPotency, mana);
         TinkerRegistry.addMaterialStats(material, stats);
     }
