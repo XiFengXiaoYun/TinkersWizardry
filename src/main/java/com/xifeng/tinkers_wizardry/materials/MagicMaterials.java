@@ -1,10 +1,15 @@
 package com.xifeng.tinkers_wizardry.materials;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public final class MagicMaterials {
+    public static Map<String, IMaterialStats> crtMat = new HashMap<>();
 
     public static void initMagicMaterials() {
         Material.UNKNOWN.addStats(new MagicMaterialStats(1.0f, 100));
@@ -21,5 +26,9 @@ public final class MagicMaterials {
         TinkerRegistry.addMaterialStats(TinkerMaterials.alumite, new MagicMaterialStats(15.0f, 550));
         TinkerRegistry.addMaterialStats(TinkerMaterials.xu,  new MagicMaterialStats(20.0f, 900));
         TinkerRegistry.addMaterialStats(TinkerMaterials.steel, new MagicMaterialStats(15.0f, 750));
+    }
+
+    public static void initCrt() {
+        crtMat.forEach(TinkerRegistry::addMaterialStats);
     }
 }

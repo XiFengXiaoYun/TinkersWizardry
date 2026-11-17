@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
         modid = Tags.MOD_ID,
         name = Tags.MOD_NAME,
         version = Tags.VERSION,
-        dependencies = "required-after:tconstruct;required-after:conarm;required-after:ebwizardry;required-after:wizardryutils"
+        dependencies = "required-after:tconstruct;required-after:conarm;required-after:ebwizardry;required-after:wizardryutils;after:crafttweaker"
 )
 public class TinkersWizardry {
 
@@ -29,6 +29,7 @@ public class TinkersWizardry {
     public void preInit(FMLPreInitializationEvent event) {
         LOGGER.info("Hello From {}!", Tags.MOD_NAME);
         MagicMaterials.initMagicMaterials();
+        MagicMaterials.initCrt();
     }
 
 
@@ -37,6 +38,7 @@ public class TinkersWizardry {
         proxy.initToolGuis();
         ModifierRegister.initModifiers();
         ConarmModifiers.initModifiers();
+        //MagicMaterials.initCrt();
     }
 
     @Mod.EventHandler
